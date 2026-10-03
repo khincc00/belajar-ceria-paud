@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Belajar Ceria</string>
+    <string name="title_activity_main">Belajar Ceria</string>
+    <string name="package_name">com.khincreator.belajarceria</string>
+    <string name="custom_url_scheme">com.khincreator.belajarceria</string>
+</resources>

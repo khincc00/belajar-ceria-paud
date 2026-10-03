@@ -1,0 +1,6 @@
+{
+  "name": "Belajar Ceria PAUD-TK",
+  "description": "Aplikasi edukasi interaktif untuk anak usia 5-7 tahun belajar huruf A-Z, angka 1-20, bentuk, dan warna dengan suara, maskot ceria, dan permainan seru.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

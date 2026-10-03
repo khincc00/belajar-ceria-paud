@@ -1,0 +1,8 @@
+{
+  "appId": "com.khincreator.belajarceria",
+  "appName": "Belajar Ceria",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#FEF3C7"
+  }
+}
