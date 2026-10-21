@@ -1,0 +1,65 @@
+name: VPNUSA
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "16.0"
+packages:
+  WireGuardApple:
+    url: https://git.zx2c4.com/wireguard-apple
+    branch: master
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: ""   # isi Team ID Apple Developer kamu
+targets:
+  VPNUSA:
+    type: application
+    platform: iOS
+    sources: [App]
+    entitlements:
+      path: App/VPNUSA.entitlements
+      properties:
+        com.apple.developer.networking.networkextension: [packet-tunnel-provider]
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: VPN USA
+        UILaunchScreen: {}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.vpnusa
+    dependencies:
+      - target: PacketTunnel
+        embed: true
+  PacketTunnel:
+    type: app-extension
+    platform: iOS
+    sources: [PacketTunnel]
+    entitlements:
+      path: PacketTunnel/PacketTunnel.entitlements
+      properties:
+        com.apple.developer.networking.networkextension: [packet-tunnel-provider]
+    info:
+      path: PacketTunnel/Info.plist
+      properties:
+        CFBundleDisplayName: VPN USA Tunnel
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.networkextension.packet-tunnel
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).PacketTunnelProvider
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.vpnusa.tunnel
+        ENABLE_BITCODE: NO
+    dependencies:
+      - package: WireGuardApple
+        product: WireGuardKit
+      - target: WireGuardGoBridge
+  # Membangun libwg-go.a (butuh Go terpasang: `brew install go`)
+  WireGuardGoBridge:
+    type: ""
+    platform: iOS
+    legacy:
+      toolPath: /usr/bin/make
+      arguments: $(ACTION)
+      workingDirectory: ${BUILD_DIR%Build/*}SourcePackages/checkouts/wireguard-apple/Sources/WireGuardKitGo
+      passSettings: true
